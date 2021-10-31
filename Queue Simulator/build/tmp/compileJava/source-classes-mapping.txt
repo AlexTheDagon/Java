@@ -1,0 +1,16 @@
+queueSimulator/utility/CustomerGenerator.java
+ queueSimulator.utility.CustomerGenerator
+queueSimulator/model/Customer.java
+ queueSimulator.model.Customer
+queueSimulator/model/CustomerQueue.java
+ queueSimulator.model.CustomerQueue
+queueSimulator/model/SimulationConstraints.java
+ queueSimulator.model.SimulationConstraints
+queueSimulator/view/GUI.java
+ queueSimulator.view.GUI
+queueSimulator/Main.java
+ queueSimulator.Main
+queueSimulator/controller/Controller.java
+ queueSimulator.controller.Controller
+queueSimulator/model/QueueManager.java
+ queueSimulator.model.QueueManager

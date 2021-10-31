@@ -1,0 +1,20 @@
+orderManagement/model/Client.java
+ orderManagement.model.Client
+orderManagement/dao/AbstractDAO.java
+ orderManagement.dao.AbstractDAO
+orderManagement/model/Product.java
+ orderManagement.model.Product
+orderManagement/bll/OrderBLL.java
+ orderManagement.bll.OrderBLL
+orderManagement/bll/ProductBLL.java
+ orderManagement.bll.ProductBLL
+orderManagement/model/Order.java
+ orderManagement.model.Order
+orderManagement/connection/ConnectionFactory.java
+ orderManagement.connection.ConnectionFactory
+orderManagement/bll/ClientBLL.java
+ orderManagement.bll.ClientBLL
+orderManagement/presentation/GUI.java
+ orderManagement.presentation.GUI
+orderManagement/Main.java
+ orderManagement.Main

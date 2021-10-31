@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"foodDelivery"},{"l":"foodDelivery.businessLayer"},{"l":"foodDelivery.dataLayer"},{"l":"foodDelivery.model"},{"l":"foodDelivery.presentationLayer"}];updateSearchResults();

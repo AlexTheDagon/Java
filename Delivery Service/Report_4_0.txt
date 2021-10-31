@@ -1,0 +1,10 @@
+Products ordered on day 3:
+   > Poached Sockeye Salmon with Mustard Herb Sauce     1
+   > Brandy Alexander II     3
+   > Savory Streusel     1
+   > Beef and Carrot Stew with Dark Beer     3
+   > Scallop and Shrimp Creole     1
+   > Broiled Shrimp Appetizer     1
+   > Candied-Fruit Pastry Cream     5
+   > The Ultimate Bolognese Sauce     1
+   > Aunt Tom's Italian Cream Cake     1
