@@ -1,0 +1,109 @@
+create table tag
+(
+    tagID   int         not null,
+    tagText varchar(20) not null,
+    constraint tag_tagID_uindex
+        unique (tagID),
+    constraint tag_tagText_uindex
+        unique (tagText)
+);
+
+alter table tag
+    add primary key (tagID);
+
+create table user
+(
+    userID   int auto_increment,
+    username varchar(20) null,
+    password varchar(20) null,
+    logged   tinyint(1)  null,
+    type     int         null,
+    constraint user_userID_uindex
+        unique (userID),
+    constraint user_username_uindex
+        unique (username)
+);
+
+alter table user
+    add primary key (userID);
+
+create table question
+(
+    questionID          int auto_increment
+        primary key,
+    userID              int           not null,
+    title               varchar(100)  not null,
+    questionText        varchar(1000) not null,
+    creationDateAndTime datetime      not null,
+    constraint question_user_userID_fk
+        foreign key (userID) references user (userID)
+);
+
+create table answer
+(
+    answerID            int auto_increment,
+    questionID          int           not null,
+    userID              int           not null,
+    answerText          varchar(1000) not null,
+    creationDateAndTime datetime      not null,
+    constraint answer_answerID_uindex
+        unique (answerID),
+    constraint answer_question_questionID_fk
+        foreign key (questionID) references question (questionID),
+    constraint answer_user_userID_fk
+        foreign key (userID) references user (userID)
+);
+
+alter table answer
+    add primary key (answerID);
+
+create table questiontagrelationship
+(
+    relationshipID int auto_increment,
+    questionID     int not null,
+    tagID          int not null,
+    constraint questiontagrelationship_relationshipID_uindex
+        unique (relationshipID),
+    constraint questiontagrelationship_question_questionID_fk
+        foreign key (questionID) references question (questionID),
+    constraint questiontagrelationship_tag_tagID_fk
+        foreign key (tagID) references tag (tagID)
+);
+
+alter table questiontagrelationship
+    add primary key (relationshipID);
+
+create table voteanswer
+(
+    voteID   int auto_increment,
+    answerID int not null,
+    userID   int not null,
+    value    int not null,
+    constraint voteanswer_voteID_uindex
+        unique (voteID),
+    constraint voteanswer_answer_answerID_fk
+        foreign key (answerID) references answer (answerID),
+    constraint voteanswer_user_userID_fk
+        foreign key (userID) references user (userID)
+);
+
+alter table voteanswer
+    add primary key (voteID);
+
+create table votequestion
+(
+    voteID     int auto_increment,
+    questionID int not null,
+    userID     int not null,
+    value      int not null,
+    constraint votequestion_voteID_uindex
+        unique (voteID),
+    constraint votequestion_question_questionID_fk
+        foreign key (questionID) references question (questionID),
+    constraint votequestion_user_userID_fk
+        foreign key (userID) references user (userID)
+);
+
+alter table votequestion
+    add primary key (voteID);
+
