@@ -29,23 +29,23 @@ alter table user
 
 create table question
 (
-    questionID          int auto_increment
+    questionID    int auto_increment
         primary key,
-    userID              int           not null,
-    title               varchar(100)  not null,
-    questionText        varchar(1000) not null,
-    creationDateAndTime datetime      not null,
+    userID        int           not null,
+    title         varchar(100)  not null,
+    question_text varchar(1000) not null,
+    dateandtime   datetime      not null,
     constraint question_user_userID_fk
         foreign key (userID) references user (userID)
 );
 
 create table answer
 (
-    answerID            int auto_increment,
-    questionID          int           not null,
-    userID              int           not null,
-    answerText          varchar(1000) not null,
-    creationDateAndTime datetime      not null,
+    answerID    int auto_increment,
+    questionID  int           not null,
+    userID      int           not null,
+    answer_text varchar(1000) not null,
+    dateandtime datetime      not null,
     constraint answer_answerID_uindex
         unique (answerID),
     constraint answer_question_questionID_fk
@@ -73,37 +73,23 @@ create table questiontagrelationship
 alter table questiontagrelationship
     add primary key (relationshipID);
 
-create table voteanswer
-(
-    voteID   int auto_increment,
-    answerID int not null,
-    userID   int not null,
-    value    int not null,
-    constraint voteanswer_voteID_uindex
-        unique (voteID),
-    constraint voteanswer_answer_answerID_fk
-        foreign key (answerID) references answer (answerID),
-    constraint voteanswer_user_userID_fk
-        foreign key (userID) references user (userID)
-);
-
-alter table voteanswer
-    add primary key (voteID);
-
-create table votequestion
+create table vote
 (
     voteID     int auto_increment,
-    questionID int not null,
     userID     int not null,
+    questionID int null,
+    answerID   int null,
     value      int not null,
     constraint votequestion_voteID_uindex
         unique (voteID),
+    constraint vote_answer_answerID_fk
+        foreign key (answerID) references answer (answerID),
     constraint votequestion_question_questionID_fk
         foreign key (questionID) references question (questionID),
     constraint votequestion_user_userID_fk
         foreign key (userID) references user (userID)
 );
 
-alter table votequestion
+alter table vote
     add primary key (voteID);
 
