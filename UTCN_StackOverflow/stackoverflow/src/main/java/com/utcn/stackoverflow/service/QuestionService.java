@@ -42,8 +42,8 @@ public class QuestionService {
         initialQuestion.setTitle(question.getTitle());
         initialQuestion.setQuestionText(question.getQuestionText());
         initialQuestion.setDateAndTime(question.getDateAndTime());
-        initialQuestion.setUser(question.getUser());
-        initialQuestion.setAnswers(question.getAnswers());
+        //initialQuestion.setUser(question.getUser());
+        //initialQuestion.setAnswers(question.getAnswers());
 
         return iQuestionRepository.save(initialQuestion);
     }

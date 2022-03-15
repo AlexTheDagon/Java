@@ -43,8 +43,8 @@ public class AnswerService {
         initialAnswer.setUserID(answer.getUserID());
         initialAnswer.setAnswerText(answer.getAnswerText());
         initialAnswer.setDateAndTime(answer.getDateAndTime());
-        initialAnswer.setUser(answer.getUser());
-        initialAnswer.setQuestion(answer.getQuestion());
+        //initialAnswer.setUser(answer.getUser());
+        //initialAnswer.setQuestion(answer.getQuestion());
 
         return iAnswerRepository.save(initialAnswer);
     }

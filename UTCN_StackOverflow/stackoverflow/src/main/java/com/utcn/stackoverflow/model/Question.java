@@ -30,18 +30,22 @@ public class Question {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Answer> answers;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Vote> votes;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Relationship> relationships;
 
     public Question() {
     }
 
-    public Question(Integer questionID, Integer userID, String title, String questionText, LocalDateTime dateAndTime, User user, List<Answer> answers, List<Vote> votes) {
+    public Question(Integer questionID, Integer userID, String title, String questionText, LocalDateTime dateAndTime, User user, List<Answer> answers, List<Vote> votes, List<Relationship> relationships) {
         this.questionID = questionID;
         this.userID = userID;
         this.title = title;
@@ -50,6 +54,7 @@ public class Question {
         this.user = user;
         this.answers = answers;
         this.votes = votes;
+        this.relationships = relationships;
     }
 
     public Integer getQuestionID() {
@@ -114,5 +119,13 @@ public class Question {
 
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
+    }
+
+    public List<Relationship> getRelationships() {
+        return relationships;
+    }
+
+    public void setRelationships(List<Relationship> relationships) {
+        this.relationships = relationships;
     }
 }

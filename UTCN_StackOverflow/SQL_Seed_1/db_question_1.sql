@@ -1,0 +1,3 @@
+INSERT INTO db.question (questionID, userID, title, question_text, dateandtime) VALUES (1, 1, 'Merge', 'Sper ca merge kkt asta', '2022-03-13 19:15:00');
+INSERT INTO db.question (questionID, userID, title, question_text, dateandtime) VALUES (2, 8, 'Merge', 'Sper ca merge kkt asta', '2022-03-13 19:15:00');
+INSERT INTO db.question (questionID, userID, title, question_text, dateandtime) VALUES (10, 10, 'Test', 'Test', '2022-03-13 19:15:00');

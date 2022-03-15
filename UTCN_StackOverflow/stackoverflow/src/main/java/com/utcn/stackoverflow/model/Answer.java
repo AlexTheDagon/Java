@@ -34,7 +34,7 @@ public class Answer {
     @JsonIgnore
     private Question question;
 
-    @OneToMany(mappedBy = "answer")
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Vote> votes;
 

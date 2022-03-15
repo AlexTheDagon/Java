@@ -46,8 +46,8 @@ public class UserService {
         initialUser.setPassword(user.getPassword());
         initialUser.setLogged(user.isLogged());
         initialUser.setType(user.getType());
-        initialUser.setQuestions(user.getQuestions());
-        initialUser.setAnswers(user.getAnswers());
+        //initialUser.setQuestions(user.getQuestions());
+        //initialUser.setAnswers(user.getAnswers());
 
         return iUserRepository.save(initialUser);
     }
