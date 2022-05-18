@@ -1,0 +1,31 @@
+<app-header></app-header>
+<section class="basic-grid" class="contentStyle" >
+
+  <div class="input-group shadow-lg mb-4 bg-white rounded-3" style="width: 50%; height:3REM">
+    <input type="text" class="form-control" placeholder="Search By" id = "searchFilterInput">
+    <button class="btn btn-outline-secondary" type="button" (click)="modifyFilter(1)">Text</button>
+    <button class="btn btn-outline-secondary" type="button" (click)="modifyFilter(2)">Tag</button>
+  </div>
+
+  <div  class="card text-center" *ngFor="let question of filteredQuestions(filterType, filterText)" class="cardStyle shadow-lg p-4 mb-4 bg-white rounded-3">
+    <div class="card-header">
+      <a [routerLink]="['/questions', question.questionID]" style = "color: black;background-color: transparent;text-decoration: none;">
+        <h5 class="card-title" >{{question?.title}}</h5>
+      </a>
+      <div>
+        Author: {{retriveUserById(question?.userID)}}
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{question?.questionText}}</p>
+    </div>
+    <div class="card-footer text-muted">
+      <div>
+        {{question?.dateAndTime}}
+      </div>
+      <div *ngFor="let tag of questionTags(question?.questionID)" style="display: inline">
+        #{{tag?.tagText}}
+      </div>
+    </div>
+  </div>
+</section>

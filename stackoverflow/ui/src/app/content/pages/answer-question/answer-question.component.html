@@ -1,0 +1,8 @@
+<app-header></app-header>
+<section class="basic-grid contentStyle">
+  <label class="form-label"><b>Your Answer</b></label>
+  <div class="input-group" style="width: 50%; height: 20rem" >
+    <textarea class="form-control" aria-label="With textarea" id="answerTextArea">{{answer?.answerText}}</textarea>
+  </div>
+  <button *ngIf="ownerPermission(answer?.userID)" class="btn btn-secondary btn-sm" style="margin: 15px; width: 8rem" (click)="submitAnswer()">Submit</button>
+</section>

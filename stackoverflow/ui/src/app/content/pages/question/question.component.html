@@ -1,0 +1,42 @@
+<app-header></app-header>
+<section class="basic-grid" class="contentStyle">
+  <div class="card text-center" class="cardStyle shadow-lg p-4 mb-4 bg-white rounded-3">
+    <div class="card-header">
+      <h1 class="card-title">{{question?.title}}</h1>
+      <p class="card-text">Score: {{questionVoteCount(question?.questionID)}}</p>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{question?.questionText}}</p>
+    </div>
+    <div class="card-footer text-muted" style="center: left">
+      <div>
+        {{question?.dateAndTime}}
+      </div>
+      <button *ngIf="votePermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="voteQuestion(getUserID(), question?.questionID, 1)">Upvote</button>
+      <button *ngIf="votePermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="voteQuestion(getUserID(), question?.questionID, -1)">Downvote</button>
+      <button *ngIf="userPermission(question?.userID)" [routerLink]="['/answerQuestion', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Answer</button>
+      <button *ngIf="ownerPermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Edit</button>
+      <button *ngIf="ownerPermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Delete</button>
+    </div>
+  </div>
+</section>
+<section class="basic-grid" class="contentStyle">
+  <div class="card text-center" *ngFor="let answer of sortedAnswers()" class="answerStyle shadow-lg p-4 mb-4 bg-white rounded-3">
+    <div class="card-header">
+      <h5 class="card-title">{{retriveUserById(answer.userID)}}</h5>
+      <p class="card-title">Score: {{answerVoteCount(answer?.answerID)}}</p>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{answer.answerText}}</p>
+    </div>
+    <div class="card-footer text-muted" style="center: left">
+      <div>
+        {{answer.dateAndTime}}
+      </div>
+      <button *ngIf="votePermission(answer?.userID)" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="voteAnswer(getUserID(), answer?.answerID, 1)">Upvote</button>
+      <button *ngIf="votePermission(answer?.userID)" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="voteAnswer(getUserID(), answer?.answerID, -1)">Downvote</button>
+      <button *ngIf="ownerPermission(answer?.userID)" [routerLink]="['/answerQuestion', question?.questionID, answer?.answerID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Edit</button>
+      <button *ngIf="ownerPermission(answer?.userID)" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="deleteAnswer(answer.answerID)">Delete</button>
+    </div>
+  </div>
+</section>

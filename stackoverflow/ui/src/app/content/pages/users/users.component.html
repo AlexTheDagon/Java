@@ -1,0 +1,15 @@
+<app-header></app-header>
+<section class="basic-grid">
+  <div  class="card text-center cardStyle shadow-lg p-1 mb-4 bg-white rounded-3" *ngFor="let user of users">
+    <div class="card-header">
+      <h5 class="card-title" >{{user?.username}}</h5>
+    </div>
+    <div class="card-body">
+      <div class="card-text">Score:</div>
+      <div class="card-text">Type: {{computeType(user?.type)}}</div>
+    </div>
+    <div class="card-footer text-muted">
+      Yeet2
+    </div>
+  </div>
+</section>
