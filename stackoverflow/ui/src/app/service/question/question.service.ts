@@ -19,16 +19,13 @@ export class QuestionService {
     return this.http.get(getByIDUrl);
   }
   create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(`${baseUrl}/createQuestion`, data);
   }
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+  update(data: any): Observable<any> {
+    return this.http.post(`${baseUrl}/updateQuestion`, data);
   }
   delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
-  }
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
+    return this.http.delete(`${baseUrl}/deleteQuestion?id=${id}`);
   }
 
 }

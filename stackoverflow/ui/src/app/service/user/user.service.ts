@@ -19,16 +19,13 @@ export class UserService {
     return this.http.get(getByIDUrl);
   }
   create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(`${baseUrl}/createUser`, data);
   }
-  update(id: any, data: any): Observable<any> {
+  update(data: any): Observable<any> {
     return this.http.post(`${baseUrl}/updateUser`, data);
   }
   delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
-  }
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
+    return this.http.delete(`${baseUrl}/deleteUser?id=${id}`);
   }
 }
 /// https://www.bezkoder.com/spring-boot-angular-13-mysql/#Define_Model_Class

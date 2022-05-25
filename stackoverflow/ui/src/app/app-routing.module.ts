@@ -5,12 +5,15 @@ import {QuestionsComponent} from "./content/pages/questions/questions.component"
 import {QuestionComponent} from "./content/pages/question/question.component";
 import {UsersComponent} from "./content/pages/users/users.component";
 import {AnswerQuestionComponent} from "./content/pages/answer-question/answer-question.component";
+import {AskQuestionComponent} from "./content/pages/ask-question/ask-question.component";
 
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: 'questions', component: QuestionsComponent },
   { path: 'questions/:id', component: QuestionComponent },
+  { path: 'askQuestion', component: AskQuestionComponent },
+  { path: 'askQuestion/:questionID', component: AskQuestionComponent },
   { path: 'users', component: UsersComponent },
   { path: 'answerQuestion/:questionID', component: AnswerQuestionComponent },
   { path: 'answerQuestion/:questionID/:answerID', component: AnswerQuestionComponent },

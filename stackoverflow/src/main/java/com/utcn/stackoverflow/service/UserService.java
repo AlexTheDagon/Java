@@ -14,6 +14,9 @@ public class UserService {
     @Autowired
     IUserRepository iUserRepository;
 
+    @Autowired
+    EmailSenderService emailSenderService = new EmailSenderService();
+
     public List<User> getAllUsers() {
         return (List<User>) iUserRepository.findAll();
     }
@@ -46,6 +49,9 @@ public class UserService {
         initialUser.setPassword(user.getPassword());
         initialUser.setLogged(user.isLogged());
         initialUser.setType(user.getType());
+
+        if(user.getType() == -1) emailSenderService.sendSimpleEmail(user.getUsername());
+
         //initialUser.setQuestions(user.getQuestions());
         //initialUser.setAnswers(user.getAnswers());
 

@@ -17,12 +17,13 @@ export class QuestionsComponent implements OnInit {
 
   questions: any[] = [];
   answers: any[] = [];
+  allAnswers: any[] = [];
   users: any[] = [];
   tags:any[] = [];
   relationships:any[] = [];
   filterType: number = 0;
   filterText: string = "";
-
+  votes: any[] = [];
 
   constructor(
     private answerService: AnswerService,
@@ -40,6 +41,31 @@ export class QuestionsComponent implements OnInit {
     this.retrieveUsers();
     this.retrieveQuestions();
     this.retrieveRelationships();
+    this.retrieveVotes();
+    this.retrieveAllAnswers();
+  }
+
+  retrieveAllAnswers(): void {
+    this.answerService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.allAnswers = data;
+          //console.log(this.answers);
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
+  retrieveVotes(): void {
+    this.voteService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.votes = data;
+          //console.log("VOTES:");
+          //console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
   }
 
   cmp(q1: string, q2:string): number {
@@ -52,7 +78,7 @@ export class QuestionsComponent implements OnInit {
         next: (data) => {
 
           this.questions = data.sort((q1,q2) => this.cmp(q1.dateAndTime, q2.dateAndTime));
-
+          console.log(this.questions);
         },
         error: (e) => console.error(e)
       });
@@ -130,6 +156,30 @@ export class QuestionsComponent implements OnInit {
     this.filterType = filterType;
     // @ts-ignore
     this.filterText = document.getElementById("searchFilterInput").value;
+  }
+
+  computeUserScore(userID: number):number {
+
+    let totalScore:number = 0;
+    let userQuestions = this.questions.filter(q => q.userID == userID);
+    let userAnswers = this.allAnswers.filter(a => a.userID == userID);
+    let userVotes = this.votes.filter(v => (v.userID == userID && v.value == -1));
+    if(userID == 5)console.log(userAnswers);
+    this.votes.forEach(v => {
+      if(v.answerID != null && !(typeof v.answerID === 'undefined')) {
+        if(!(typeof userAnswers.find(a => (a.answerID == v.answerID)) === 'undefined')) {
+          if(v.value > 0) totalScore += 10;
+          else totalScore -= 2;
+        }
+      } else {
+        if(!(typeof userQuestions.find(q => (q.questionID == v.questionID)) === 'undefined')) {
+          if(v.value > 0) totalScore += 5;
+          else totalScore -= 2;
+        }
+      }
+    })
+    totalScore -= userVotes.length;
+    return totalScore;
   }
 
 }

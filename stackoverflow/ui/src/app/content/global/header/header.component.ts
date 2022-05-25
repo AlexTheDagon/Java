@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
 
   users: any[] = [];
   show: boolean = true;
+  showAllert: boolean = false;
   constructor(
     private userService: UserService,
   ) { }
@@ -41,7 +42,9 @@ export class HeaderComponent implements OnInit {
     return "Login";
   }
 
-
+  handleAlert(): void {
+    this.showAllert = false;
+  }
 
   logOutUser() {
     if(!localStorage["loggedUser"]) return;
@@ -56,8 +59,13 @@ export class HeaderComponent implements OnInit {
     let myUser = this.users.find(u => (u.username == username && u.password == password));
 
     if(typeof myUser === 'undefined') return;console.log(myUser);
+    if(myUser.type == -1) {
+      this.showAllert = true;
+      return;
+    }
     localStorage["loggedUser"] = JSON.stringify(myUser);
   }
+
 
 
   handleLoginMessage(): string {
@@ -75,7 +83,7 @@ export class HeaderComponent implements OnInit {
     let myUser = this.users.find(u => u.userID == userID);
     myUser.logged = false;
     if(typeof myUser.userID === 'undefined') return;
-    this.userService.update(myUser.userID, myUser).subscribe({
+    this.userService.update(myUser).subscribe({
       next: (data) => {
       },
       error: (e) => console.error(e)

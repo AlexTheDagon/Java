@@ -3,6 +3,7 @@ import {QuestionService} from "../../../service/question/question.service";
 import {AnswerService} from "../../../service/answer/answer.service";
 import {UserService} from "../../../service/user/user.service";
 import {ActivatedRoute} from "@angular/router";
+import {User} from "../../../model/user/user";
 
 @Component({
   selector: 'app-users',
@@ -17,7 +18,6 @@ export class UsersComponent implements OnInit {
     private questionsService: QuestionService,
     private answersService: AnswerService,
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +42,34 @@ export class UsersComponent implements OnInit {
     return rez;
   }
 
+  modPermission():boolean {
+    if(!localStorage["loggedUser"]) return false;
+    let myUser = JSON.parse(localStorage.getItem("loggedUser") || "");
+    if(myUser.type == 1) return true;
+    return false;
+  }
 
+  banUser(userID: number): void {
+    this.userService.get(userID).subscribe({
+      next: (data) => {
+        let myUser = data;
+        const newUser : User = {
+          userID: myUser.userID,
+          username: myUser.username,
+          password: myUser.password,
+          logged: myUser.logged,
+          type: -1,
+        }
+        console.log(newUser);
+        this.userService.update(newUser)
+          .subscribe({
+            next: () => {
+              location.reload();
+            },
+            error: (e) => console.error(e)
+          });
+      },
+      error: (e) => console.error(e)
+    });
+  }
 }

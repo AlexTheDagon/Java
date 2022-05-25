@@ -3,6 +3,7 @@
   <div class="card text-center" class="cardStyle shadow-lg p-4 mb-4 bg-white rounded-3">
     <div class="card-header">
       <h1 class="card-title">{{question?.title}}</h1>
+      <p class="card-title">Author: {{retriveUserById(question?.userID)}} ({{computeUserScore(question?.userID)}})</p>
       <p class="card-text">Score: {{questionVoteCount(question?.questionID)}}</p>
     </div>
     <div class="card-body">
@@ -15,15 +16,15 @@
       <button *ngIf="votePermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="voteQuestion(getUserID(), question?.questionID, 1)">Upvote</button>
       <button *ngIf="votePermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="voteQuestion(getUserID(), question?.questionID, -1)">Downvote</button>
       <button *ngIf="userPermission(question?.userID)" [routerLink]="['/answerQuestion', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Answer</button>
-      <button *ngIf="ownerPermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Edit</button>
-      <button *ngIf="ownerPermission(question?.userID)" [routerLink]="['/questions', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Delete</button>
+      <button *ngIf="ownerPermission(question?.userID)" [routerLink]="['/askQuestion', question?.questionID]" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem">Edit</button>
+      <button *ngIf="ownerPermission(question?.userID)" [routerLink]="['/questions']" class="btn btn-secondary btn-sm" style="margin: 5px; width: 8rem" (click)="deleteQuestion(question?.questionID)">Delete</button>
     </div>
   </div>
 </section>
 <section class="basic-grid" class="contentStyle">
   <div class="card text-center" *ngFor="let answer of sortedAnswers()" class="answerStyle shadow-lg p-4 mb-4 bg-white rounded-3">
     <div class="card-header">
-      <h5 class="card-title">{{retriveUserById(answer.userID)}}</h5>
+      <h5 class="card-title">Author: {{retriveUserById(answer.userID)}} ({{computeUserScore(answer?.userID)}})</h5>
       <p class="card-title">Score: {{answerVoteCount(answer?.answerID)}}</p>
     </div>
     <div class="card-body">
@@ -40,3 +41,4 @@
     </div>
   </div>
 </section>
+

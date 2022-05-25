@@ -1,2 +1,5 @@
-export class Relationship {
+export interface Relationship {
+  relationshipID: number,
+  tagID: number,
+  questionID: number,
 }

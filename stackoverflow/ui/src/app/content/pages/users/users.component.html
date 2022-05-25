@@ -9,7 +9,7 @@
       <div class="card-text">Type: {{computeType(user?.type)}}</div>
     </div>
     <div class="card-footer text-muted">
-      Yeet2
+      <button *ngIf="modPermission()" class="btn btn-secondary btn-sm" style="margin: 5px; width: 3rem" (click)="banUser(user?.userID)">BAN</button>
     </div>
   </div>
 </section>

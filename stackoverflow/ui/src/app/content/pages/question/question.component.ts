@@ -12,11 +12,15 @@ import {Vote} from "../../../model/vote/vote";
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss']
 })
+
+
 export class QuestionComponent implements OnInit {
   question: any;
   answers: any[] = [];
+  allAnswers: any[] = [];
   users: any[] = [];
   votes: any[] = [];
+  questions: any[] = [];
 
   constructor(
     private questionsService: QuestionService,
@@ -29,10 +33,23 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveQuestion();
     this.retrieveAnswers();
+    this.retrieveAllAnswers();
     this.retrieveUsers();
     this.retrieveVotes();
-
+    this.retrieveQuestions();
   }
+
+  retrieveAllAnswers(): void {
+    this.answersService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.allAnswers = data;
+          //console.log(this.answers);
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
 
   retrieveVotes(): void {
     this.voteService.getAll()
@@ -51,6 +68,17 @@ export class QuestionComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.question = data;
+          //console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
+  retrieveQuestions(): void {
+    this.questionsService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.questions = data;
           //console.log(data);
         },
         error: (e) => console.error(e)
@@ -101,7 +129,7 @@ export class QuestionComponent implements OnInit {
   ownerPermission(userID: number): boolean {
     if(!localStorage["loggedUser"]) return false;
     let myUser = JSON.parse(localStorage.getItem("loggedUser") || "");
-    if(userID == myUser.userID) return true;
+    if(myUser.type == 1 || userID == myUser.userID) return true;
     return false;
   }
 
@@ -117,6 +145,16 @@ export class QuestionComponent implements OnInit {
       error: (e) => console.error(e)
     });
     location.reload();
+  }
+
+  deleteQuestion(deleteQuestionID: number) : void {
+    this.questionsService.delete(deleteQuestionID).subscribe({
+      next: (data) => {
+        location.reload();
+      },
+      error: (e) => console.error(e)
+    });
+
   }
 
   votePermission(userID: number): boolean {
@@ -194,6 +232,28 @@ export class QuestionComponent implements OnInit {
       }
     }
     location.reload();
+  }
+
+  computeUserScore(userID: number):number {
+    let totalScore:number = 0;
+    let userQuestions = this.questions.filter(q => q.userID == userID);
+    let userAnswers = this.allAnswers.filter(a => a.userID == userID);
+    let userVotes = this.votes.filter(v => (v.userID == userID && v.value == -1));
+    this.votes.forEach(v => {
+      if(v.answerID != null && !(typeof v.answerID === 'undefined')) {
+        if(!(typeof userAnswers.find(a => (a.answerID == v.answerID)) === 'undefined')) {
+          if(v.value > 0) totalScore += 10;
+          else totalScore -= 2;
+        }
+      } else {
+        if(!(typeof userQuestions.find(q => (q.questionID == v.questionID)) === 'undefined')) {
+          if(v.value > 0) totalScore += 5;
+          else totalScore -= 2;
+        }
+      }
+    })
+    totalScore -= userVotes.length;
+    return totalScore;
   }
 
 }

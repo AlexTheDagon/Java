@@ -18,6 +18,7 @@ import {RelationshipService} from "./service/relationship/relationship.service";
 import {VoteService} from "./service/vote/vote.service";
 import { UsersComponent } from './content/pages/users/users.component';
 import { AnswerQuestionComponent } from './content/pages/answer-question/answer-question.component';
+import { AskQuestionComponent } from './content/pages/ask-question/ask-question.component';
 
 
 
@@ -30,6 +31,7 @@ import { AnswerQuestionComponent } from './content/pages/answer-question/answer-
     QuestionComponent,
     UsersComponent,
     AnswerQuestionComponent,
+    AskQuestionComponent,
 
   ],
   imports: [

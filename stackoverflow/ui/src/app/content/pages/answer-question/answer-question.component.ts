@@ -37,8 +37,8 @@ export class AnswerQuestionComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.answer = data;
-          console.log("ANSWER:");
-          console.log(data);
+          //console.log("ANSWER:");
+          //console.log(data);
         },
         error: (e) => console.error(e)
       });
@@ -71,7 +71,7 @@ export class AnswerQuestionComponent implements OnInit {
     if(typeof userID == 'undefined') return true;
     if(!localStorage["loggedUser"]) return false;
     let myUser = JSON.parse(localStorage.getItem("loggedUser") || "");
-    if(userID == myUser.userID) return true;
+    if(myUser.type == 1 || userID == myUser.userID) return true;
     return false;
   }
 
@@ -81,8 +81,9 @@ export class AnswerQuestionComponent implements OnInit {
     let newDate = new Date().toISOString().slice(0, 19);
     // @ts-ignore
     let myAnswer = document.getElementById("answerTextArea").value;
-    var myAnswerId: any;
+    let myAnswerId: any;
     var createAnswer: boolean = false;
+    let theUserID: number = myUser?.userID;
     if(typeof this.answerID === 'undefined') {
       // @ts-ignore
       myAnswerId = this.answers.at(- 1)?.answerID + 1;
@@ -90,12 +91,13 @@ export class AnswerQuestionComponent implements OnInit {
       // @ts-ignore
       myAnswerId = +this.answerID;
       createAnswer = true;
+      theUserID = this.answers.find(a => a.answerID == myAnswerId).userID;
     }
 
     const newAnswer: Answer = {
       answerID: myAnswerId,
       questionID: +this.activatedRoute.snapshot.params['questionID'],
-      userID: myUser.userID,
+      userID: theUserID,
       answerText: myAnswer,
       dateAndTime: newDate
     };
@@ -111,7 +113,7 @@ export class AnswerQuestionComponent implements OnInit {
       next: (data) => {
       },
       error: (e) => console.error(e)
-    });;
+    });
   }
 
 

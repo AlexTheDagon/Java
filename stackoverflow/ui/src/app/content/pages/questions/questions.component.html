@@ -13,7 +13,7 @@
         <h5 class="card-title" >{{question?.title}}</h5>
       </a>
       <div>
-        Author: {{retriveUserById(question?.userID)}}
+        Author: {{retriveUserById(question?.userID)}} ({{computeUserScore(question?.userID)}})
       </div>
     </div>
     <div class="card-body">
