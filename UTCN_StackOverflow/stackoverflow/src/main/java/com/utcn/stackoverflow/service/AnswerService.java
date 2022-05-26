@@ -38,7 +38,6 @@ public class AnswerService {
 
     public Answer updateAnswer(Integer id, Answer answer){
         Answer initialAnswer = this.getAnswer(id);
-
         initialAnswer.setQuestionID(answer.getQuestionID());
         initialAnswer.setUserID(answer.getUserID());
         initialAnswer.setAnswerText(answer.getAnswerText());

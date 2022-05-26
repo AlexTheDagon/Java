@@ -1,0 +1,39 @@
+
+
+
+<section class="basic-grid" >
+  <div class="card cardStyle shadow-lg p-4 bg-white rounded-3 mx-auto">
+    <div class = "card-header">
+      <h3 class="card-title" style = "text-align: left" >Rezumat</h3>
+    </div>
+    <div class="card-body">
+      <div *ngFor="let weekDay of weekDays" style="font-size: large;" class="m-1">
+        <h5>{{weekDay}}:</h5>
+        <div style="padding-left: 2rem">{{convertPlannedActivityToString(plannedActivities[weekDays.indexOf(weekDay)])}}</div>
+        <div style="padding-left: 2rem">{{convertPlannedActivityToString(plannedActivities[weekDays.indexOf(weekDay) + 5])}}</div>
+      </div>
+    </div>
+    <div class = "card-footer">
+      <div class="col">
+        <div style="float: right">
+          Timp Total: {{totalTimeAsString()}}
+        </div>
+        <div style="float: left">
+          KCalorii Consumate: {{totalCalories().toString()}} KCal
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card cardStyle bg-white mx-auto d-flex">
+
+    <div class="d-flex justify-content-between">
+      <div>
+        <button [routerLink]="['/dayplanner', 4]" class="btn btn-secondary btn-lg float-start" style="margin: 5px; width: 8rem">Vineri</button>
+      </div>
+    </div>
+  </div>
+
+</section>

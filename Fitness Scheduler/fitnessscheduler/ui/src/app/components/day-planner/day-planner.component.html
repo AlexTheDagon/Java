@@ -1,0 +1,95 @@
+
+
+
+<section class="basic-grid" >
+  <div class="card cardStyle shadow-lg p-4 bg-white rounded-3 mx-auto">
+    <div class = "card-header">
+      <h3 class="card-title" style = "text-align: left" >{{computeDay(computeDayIndex())}} Dimineata</h3>
+    </div>
+    <div class="card-body">
+      <div class = "row">
+        <div class="col-md-auto m-1">
+          <div class="row m-2">
+            <label class="col-sm-1 col-form-label col-form-label-sm" style="font-size: large; width: auto">Activitate: </label>
+          </div>
+          <div class="row m-2">
+            <label class="col-sm-1 col-form-label col-form-label-sm" style="font-size: large; width: auto">De la: </label>
+          </div>
+          <div class="row m-2">
+            <label class="col-sm-1 col-form-label col-form-label-sm" style="font-size: large; width: auto">Pana la: </label>
+          </div>
+        </div>
+
+        <div class="col m-10">
+          <div class="row m-2" style="padding-left: 12px; width: 30%;">
+            <select class="form-select" id="morningActivity">
+              <option *ngFor="let activity of activities" value="{{activities.indexOf(activity)}}" selected="{{selectedMornAct(activity)}}">{{activity.name}}</option>
+            </select>
+          </div>
+          <div class="row m-2">
+            <ngb-timepicker [(ngModel)]="s_time_m" [spinners]="false"></ngb-timepicker>
+          </div>
+          <div class="row m-2">
+            <ngb-timepicker [(ngModel)]="e_time_m" [spinners]="false"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cardStyle shadow-lg p-4 mb-4 bg-white rounded-3 mx-auto">
+    <div class = "card-header">
+      <h3 class="card-title" style = "text-align: left" >{{computeDay(computeDayIndex())}} Seara</h3>
+    </div>
+    <div class="card-body">
+      <div class = "row">
+        <div class="col-md-auto m-1">
+          <div class="row m-2">
+            <label class="col-sm-1 col-form-label col-form-label-sm" style="font-size: large; width: auto">Activitate: </label>
+          </div>
+          <div class="row m-2">
+            <label class="col-sm-1 col-form-label col-form-label-sm" style="font-size: large; width: auto">De la: </label>
+          </div>
+          <div class="row m-2">
+            <label class="col-sm-1 col-form-label col-form-label-sm" style="font-size: large; width: auto">Pana la: </label>
+          </div>
+        </div>
+
+        <div class="col m-10">
+          <div class="row m-2" style="padding-left: 12px; width: 30%;">
+            <select class="form-select" id="nightActivity">
+              <option *ngFor="let activity of activities" value="{{activities.indexOf(activity)}}" selected="{{selectedNightAct(activity)}}">{{activity.name}}</option>
+            </select>
+          </div>
+          <div class="row m-2">
+            <ngb-timepicker [(ngModel)]="s_time_n" [spinners]="false"></ngb-timepicker>
+          </div>
+          <div class="row m-2">
+            <ngb-timepicker [(ngModel)]="e_time_n" [spinners]="false"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cardStyle bg-white mx-auto d-flex">
+
+    <div class="d-flex justify-content-between">
+      <div>
+        <button (click)="saveActivities()" *ngIf="permissionPrevDay(computeDayIndex())" [routerLink]="['/dayplanner', computeDayIndex() - 1]" class="btn btn-secondary btn-lg float-start" style="margin: 5px; width: 8rem">{{computeDay(computeDayIndex() - 1)}}</button>
+      </div>
+      <div *ngIf="permissionNextDay(computeDayIndex())">
+        <button (click)="saveActivities()" [routerLink]="['/dayplanner', computeDayIndex() + 1]" class="btn btn-secondary btn-lg float-end" style="margin: 5px; width: 8rem">{{computeDay(computeDayIndex() + 1)}}</button>
+      </div>
+      <div  *ngIf="permissionSummary(computeDayIndex())">
+        <button (click)="saveActivities()" [routerLink]="['/summary']" class="btn btn-secondary btn-lg float-end" style="margin: 5px; width: 8rem">Summary</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!--
+<div>
+      <button (click)="saveActivities()" class="btn btn-secondary btn-sm float-start" style="margin: 5px; width: 8rem">Verif Data</button>
+    </div>
+-->
